@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>First-Responder Protokoll</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <section class="panel form-panel">
+        <h1>First-Responder Protokoll</h1>
+
+        <label for="situation" class="label">Schilderung der Notfall-Situation</label>
+        <textarea id="situation" maxlength="2000" rows="12" placeholder="Bitte schildern Sie die Situation..."></textarea>
+        <div class="counter"><span id="charCount">0</span>/2000 Zeichen</div>
+
+        <h2 class="section-title">Erstbefund</h2>
+
+        <select id="category" name="category">
+          <option value="">Bitte wählen</option>
+          <option value="Erkrankung">Erkrankung</option>
+          <option value="Unfall">Unfall</option>
+        </select>
+
+        <div id="unfallKoerperstellenGroup" class="inline-input hidden">
+          <label for="unfallKoerperstellen">Betroffene Körperstellen</label>
+          <textarea id="unfallKoerperstellen" maxlength="500" rows="3" placeholder="z. B. linkes Knie, rechte Hand, Schulter..."></textarea>
+        </div>
+
+        <div class="vital-grid">
+          <div class="vital-item">
+            <label>Bewusstsein</label>
+            <div class="radio-group">
+              <label><input type="radio" name="bewusstsein" value="orientiert" /> orientiert</label>
+              <label><input type="radio" name="bewusstsein" value="desorientiert" /> desorientiert</label>
+              <label><input type="radio" name="bewusstsein" value="getrübt" /> getrübt</label>
+              <label><input type="radio" name="bewusstsein" value="bewusstlos" /> bewusstlos</label>
+            </div>
+          </div>
+          <div class="vital-item">
+            <label>Atmung</label>
+            <div class="radio-group">
+              <label><input type="radio" name="atmung" value="unaufällig" /> unaufällig</label>
+              <label><input type="radio" name="atmung" value="Atemnot" /> Atemnot</label>
+              <label><input type="radio" name="atmung" value="Hyperventilation" /> Hyperventilation</label>
+              <label><input type="radio" name="atmung" value="Atemstillstand" /> Atemstillstand</label>
+            </div>
+          </div>
+          <div class="vital-item">
+            <label>Schmerz</label>
+            <div class="radio-group">
+              <label><input type="radio" name="schmerz" value="kein" /> kein</label>
+              <label><input type="radio" name="schmerz" value="leicht" /> leicht</label>
+              <label><input type="radio" name="schmerz" value="mäßig" /> mäßig</label>
+              <label><input type="radio" name="schmerz" value="stark" /> stark</label>
+            </div>
+          </div>
+          <div class="vital-item">
+            <label>Kreislauf</label>
+            <div class="radio-group">
+              <label><input type="radio" name="kreislauf" value="stabil" /> stabil</label>
+              <label><input type="radio" name="kreislauf" value="nicht stabil" /> nicht stabil</label>
+              <label><input type="radio" name="kreislauf" value="Schock" /> Schock</label>
+              <label><input type="radio" name="kreislauf" value="Kreislaufstillstand" /> Kreislaufstillstand</label>
+            </div>
+          </div>
+          <div class="vital-item">
+            <label>Verletzung</label>
+            <div class="radio-group">
+              <label><input type="radio" name="verletzung" value="Prellung" /> Prellung</label>
+              <label><input type="radio" name="verletzung" value="Fraktur" /> Fraktur</label>
+              <label><input type="radio" name="verletzung" value="Wunde" /> Wunde</label>
+              <label><input type="radio" name="verletzung" value="Verbrenung" /> Verbrenung</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="vital-entries-section">
+          <h2 class="section-title">Vitalparameter</h2>
+
+          <div id="vitalEntries"></div>
+
+          <button id="addVitalEntry" type="button" class="add-button">+ Neuer Eintrag</button>
+        </div>
+
+        <h2 class="section-title">Maßnahmen</h2>
+
+        <div class="measure-grid">
+          <div class="vital-item">
+            <label>Lagerung</label>
+            <div class="radio-group">
+              <label><input type="radio" name="lagerung" value="Flachlagerung" /> Flachlagerung</label>
+              <label><input type="radio" name="lagerung" value="Oberkörper hoch" /> Oberkörper hoch</label>
+              <label><input type="radio" name="lagerung" value="Schocklage" /> Schocklage</label>
+              <label><input type="radio" name="lagerung" value="stabile Seitenlage" /> stabile Seitenlage</label>
+              <label><input type="radio" name="lagerung" value="sitzend" /> sitzend</label>
+              <label><input type="radio" name="lagerung" value="HWS-Immobilisation" /> HWS-Immobilisation</label>
+            </div>
+          </div>
+
+          <div class="vital-item">
+            <label>Atmung</label>
+            <div class="radio-group">
+              <label><input type="radio" name="atmungMassnahme" value="Atemwege frei" /> Atemwege frei</label>
+              <label><input type="radio" name="atmungMassnahme" value="Absaugen" /> Absaugen</label>
+              <label><input type="radio" name="atmungMassnahme" value="Sauerstoffgabe" /> Sauerstoffgabe</label>
+              <label><input type="radio" name="atmungMassnahme" value="Guedeltubus" /> Güdeltubus</label>
+              <label><input type="radio" name="atmungMassnahme" value="Maskenbeatmung" /> Maskenbeatmung</label>
+            </div>
+
+            <div id="oxygenAmountGroup" class="inline-input hidden">
+              <label for="oxygenAmount">Sauerstoffmenge (l/min)</label>
+              <input id="oxygenAmount" type="number" min="1" max="15" step="1" placeholder="z. B. 3" />
+            </div>
+          </div>
+
+          <div class="vital-item">
+            <label>Kreislauf</label>
+            <div class="radio-group">
+              <label><input type="radio" name="kreislaufMassnahme" value="Reanimation" /> Reanimation</label>
+              <label><input type="radio" name="kreislaufMassnahme" value="AED angeschlossen" /> AED angeschlossen</label>
+            </div>
+
+            <div id="aedOptionsGroup" class="inline-input hidden">
+              <label>AED-Empfehlung</label>
+              <div class="radio-group">
+                <label><input type="radio" name="aedEmpfehlung" value="zuerst Schock empfohlen" /> zuerst Schock empfohlen</label>
+                <label><input type="radio" name="aedEmpfehlung" value="zuerst kein Schock empfohlen" /> zuerst kein Schock empfohlen</label>
+              </div>
+
+              <label for="shockCount">Anzahl der Schocks</label>
+              <input id="shockCount" type="number" min="0" max="20" step="1" placeholder="z. B. 3" />
+            </div>
+          </div>
+        </div>
+
+        <h2 class="section-title">Übergabe</h2>
+
+        <div class="inline-input">
+          <label for="patientState">Patientenzustand bei Übergabe</label>
+          <select id="patientState" name="patientState">
+            <option value="">Bitte wählen</option>
+            <option value="verbessert">Verbessert</option>
+            <option value="gleich">gleich</option>
+            <option value="schlechter">schlechter</option>
+          </select>
+        </div>
+
+        <div class="inline-input">
+          <label for="einsatzbewertung">Einsatzbewertung</label>
+          <select id="einsatzbewertung" name="einsatzbewertung">
+            <option value="">Bitte wählen</option>
+            <option value="keine Besonderheiten">keine Besonderheiten</option>
+            <option value="Besonderheiten">Besonderheiten</option>
+            <option value="Rücksprache ÄLRD gewünscht">Rücksprache ÄLRD gewünscht</option>
+          </select>
+        </div>
+
+        <div id="besonderheitenGroup" class="inline-input hidden">
+          <label for="besonderheitenText">Besonderheiten</label>
+          <textarea id="besonderheitenText" maxlength="500" rows="5" placeholder="Bitte geben Sie die Besonderheiten an..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button id="resetFormButton" type="button" class="reset-button">Formular zurücksetzen</button>
+        </div>
+      </section>
+
+      <aside class="panel summary-panel">
+        <h2>Zusammenfassung</h2>
+        <div class="summary-content">
+          <p class="summary-point">Schilderung der Notfall-Situation</p>
+        <p id="summaryText" class="summary-text">Noch keine Schilderung eingetragen.</p>
+
+        <p class="summary-point">Erstbefund</p>
+        <p id="summaryCategory" class="summary-text">Erstbefund: Noch keine Auswahl getroffen.</p>
+        <p class="summary-row"><strong>Betroffene Körperstellen:</strong> <span id="summaryUnfallKoerperstellen">-</span></p>
+
+        <div class="summary-vitals">
+          <p class="summary-row"><strong>Bewusstsein:</strong> <span id="summaryBewusstsein">-</span></p>
+          <p class="summary-row"><strong>Atmung:</strong> <span id="summaryAtmung">-</span></p>
+          <p class="summary-row"><strong>Schmerz:</strong> <span id="summarySchmerz">-</span></p>
+          <p class="summary-row"><strong>Kreislauf:</strong> <span id="summaryKreislauf">-</span></p>
+          <p class="summary-row"><strong>Verletzung:</strong> <span id="summaryVerletzung">keine</span></p>
+        </div>
+
+        <p class="summary-point">Vitalparameter</p>
+        <div class="summary-table-wrap">
+          <table class="summary-table">
+            <thead>
+              <tr>
+                <th>Uhrzeit</th>
+                <th>Blutdruck (mmHg)</th>
+                <th>HF (1/min)</th>
+                <th>SpO₂ (%)</th>
+                <th>BS (mg/dl)</th>
+                <th>Temp. (°C)</th>
+              </tr>
+            </thead>
+            <tbody id="summaryVitalTableBody">
+              <tr>
+                <td colspan="6">Noch keine Messwerte erfasst.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="summary-point">Maßnahmen</p>
+        <div class="summary-vitals">
+          <p class="summary-row"><strong>Lagerung:</strong> <span id="summaryLagerung">-</span></p>
+          <p class="summary-row"><strong>Maßnahme Atmung:</strong> <span id="summaryAtmungMassnahme">-</span></p>
+          <p class="summary-row"><strong>Sauerstoff:</strong> <span id="summaryOxygenAmount">-</span></p>
+          <p class="summary-row"><strong>Kreislaufmaßnahme:</strong> <span id="summaryKreislaufMassnahme">-</span></p>
+          <p class="summary-row"><strong>AED:</strong> <span id="summaryAedEmpfehlung">-</span></p>
+          <p class="summary-row"><strong>Schocks:</strong> <span id="summaryShockCount">-</span></p>
+        </div>
+
+        <p class="summary-point">Übergabe</p>
+        <div class="summary-vitals">
+          <p class="summary-row"><strong>Patientenzustand bei Übergabe:</strong> <span id="summaryPatientState">-</span></p>
+          <p class="summary-row"><strong>Einsatzbewertung:</strong> <span id="summaryEinsatzbewertung">-</span></p>
+          <p class="summary-row"><strong>Besonderheiten:</strong> <span id="summaryBesonderheiten">-</span></p>
+        </div>
+        </div>
+        <div class="summary-actions">
+          <button id="copySummaryButton" type="button" class="copy-button">In die Zwischenablage</button>
+        </div>
+      </aside>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
